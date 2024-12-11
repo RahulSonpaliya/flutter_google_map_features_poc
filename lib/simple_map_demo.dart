@@ -25,19 +25,58 @@ class SimpleMapDemoState extends State<SimpleMapDemo> {
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
+  final _sydneyMarker = const Marker(
+    markerId: MarkerId('Sydney'),
+    position: LatLng(-33.86, 151.20),
+  );
+
+  var markers = <Marker>{};
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
         initialCameraPosition: _kGooglePlex,
+        markers: markers,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
+      floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton.extended(
+            onPressed: () {
+              setState(() {
+                markers.add(_sydneyMarker);
+              });
+              _goToSydney();
+            },
+            label: const Text('Drop Marker On Sydney'),
+            icon: const Icon(Icons.directions),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          FloatingActionButton.extended(
+            onPressed: _goToTheLake,
+            label: const Text('To the lake!'),
+            icon: const Icon(Icons.directions_boat),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _goToSydney() async {
+    final GoogleMapController controller = await _controller.future;
+    await controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: _sydneyMarker.position,
+          zoom: 10,
+        ),
       ),
     );
   }
