@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_google_map_features_poc/map_with_path_demo.dart';
+import 'package:flutter_google_map_features_poc/place_picker_page.dart';
 import 'package:flutter_google_map_features_poc/simple_map_demo.dart';
 
 import 'geocoding_demo.dart';
@@ -48,6 +49,18 @@ class MapOptionsPage extends StatelessWidget {
                 );
               },
               child: const Text('GeoCoding Demo'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => PlacePickerPage()),
+                );
+              },
+              child: const Text('Place Picker Demo'),
             ),
           ],
         ),
