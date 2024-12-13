@@ -4,6 +4,7 @@ import 'package:flutter_google_map_features_poc/place_picker_page.dart';
 import 'package:flutter_google_map_features_poc/simple_map_demo.dart';
 
 import 'geocoding_demo.dart';
+import 'map_with_marker_clustering.dart';
 
 class MapOptionsPage extends StatelessWidget {
   const MapOptionsPage({
@@ -61,6 +62,19 @@ class MapOptionsPage extends StatelessWidget {
                 );
               },
               child: const Text('Place Picker Demo'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const MapWithMarkerClustering()),
+                );
+              },
+              child: const Text('Map With Marker Clustering'),
             ),
           ],
         ),
